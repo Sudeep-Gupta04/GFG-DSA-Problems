@@ -83,36 +83,24 @@ public class Main {
 class Solution {
     // Function to merge two sorted linked list.
     Node sortedMerge(Node head1, Node head2) {
-        // This is a "method-only" submission.
-        // You only need to complete this method
-        Node temp = new Node(-101);
-        Node Head = temp;
-        Node h1 = head1;
-        Node h2 = head2;
-        while (h1!=null && h2!=null){
-            if(h1.data>=h2.data){
-                Node node =  new Node(h2.data);
-                temp.next = node;
-                temp=temp.next;
-                h2 = h2.next;
+         Node dummy = new Node(-1);
+        Node Head = dummy;
+        while(head1!=null && head2!=null){
+            if(head1.data>=head2.data){
+                dummy.next = head2;
+                head2 = head2.next;
+                dummy = dummy.next;
             }else {
-                Node node =  new Node(h1.data);
-                temp.next = node;
-                temp=temp.next;
-                h1 = h1.next;
+                dummy.next = head1;
+                head1 = head1.next;
+                dummy = dummy.next;
             }
         }
-        while (h1!=null){
-            Node node =  new Node(h1.data);
-            temp.next = node;
-            temp=temp.next;
-            h1 = h1.next;
+        if(head1!=null){
+            dummy.next = head1;
         }
-        while (h2!=null){
-            Node node =  new Node(h2.data);
-            temp.next = node;
-            temp=temp.next;
-            h2 = h2.next;
+        if(head2!=null){
+            dummy.next=head2;
         }
         return Head.next;
     }
