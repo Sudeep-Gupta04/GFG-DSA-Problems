@@ -1,125 +1,27 @@
 //{ Driver Code Starts
-import java.util.Scanner;
+// Initial Template for Java
+
 import java.util.*;
-import java.io.*;
 
-class Node
-{
-	int data;
-	Node next;
-	Node bottom;
-	
-	Node(int d)
-	{
-		data = d;
-		next = null;
-		bottom = null;
-	}
-}
+class Node {
+    int data;
+    Node next;
+    Node bottom;
 
-
-class Flatttening_A_LinkedList
-{	
-    Node head;
-	
-	void printList(Node node)
-    {
-        //Node temp = head;
-        while (node != null)
-        {
-            System.out.print(node.data + " ");
-            node =node.bottom;
-        }
-        System.out.println();
+    Node(int x) {
+        data = x;
+        next = null;
+        bottom = null;
     }
-	public  static void main(String args[])
-	{
-		Scanner sc = new Scanner(System.in);
-		int t = sc.nextInt();
-		Flatttening_A_LinkedList list = new Flatttening_A_LinkedList();
-		while(t>0)
-		{
-			int N = sc.nextInt();
-			int arr[] = new int[N];
-			for(int i=0;i<N;i++)
-				arr[i] = sc.nextInt();
-			
-			Node temp = null;
-			Node tempB = null;
-			Node pre = null;
-			Node preB = null;	
-			int flag=1;
-			int flag1=1;
-			for(int i=0; i<N;i++)
-			{
-				int m = arr[i];
-				m--;
-				int a1 = sc.nextInt();
-				temp = new Node(a1);
-				if(flag == 1)
-				{
-					list.head = temp;
-					pre = temp;
-					flag = 0;
-					flag1 = 1;
-				}
-				else
-				{
-					pre.next = temp;
-					pre = temp;
-					flag1 = 1;
-				}
-				
-				for(int j=0;j<m;j++)
-				{
-					int a = sc.nextInt();
-					tempB = new Node(a);
-					if(flag1 == 1)
-					{
-						temp.bottom = tempB;
-						preB = tempB;
-						flag1 = 0;
-					}
-					else
-					{
-						preB.bottom = tempB;
-						preB = tempB;
-					}
-				}
-				
-			}
-			//list.printList();
-			GfG g = new GfG();
-			Node root = g.flatten(list.head);
-			list.printList(root);
-		
-		t--;
-		}
-	}	
 }
+
+
 // } Driver Code Ends
+// User function Template for Java
 
-
-/*Node class  used in the program
-class Node
-{
-	int data;
-	Node next;
-	Node bottom;
-	
-	Node(int d)
-	{
-		data = d;
-		next = null;
-		bottom = null;
-	}
-}
-*/
-/*  Function which returns the  root of 
-    the flattened linked list. */
-class GfG
-{
-     Node flatten(Node root)
+class Solution {
+    // Function to flatten a linked list
+   Node flatten(Node root)
     {
         if(root==null || root.next==null) return root;
         Node prev = root;
@@ -160,3 +62,62 @@ class GfG
         return Head.bottom;
     }
 }
+
+//{ Driver Code Starts.
+
+public class GFG {
+    static void printList(Node node) {
+        while (node != null) {
+            System.out.print(node.data + " ");
+            node = node.bottom;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine(); // Consume the remaining newline
+
+        while (t-- > 0) {
+            String[] workArray = sc.nextLine().trim().split(" ");
+            int n = workArray.length;
+
+            Node head = null;
+            Node pre = null;
+
+            for (int i = 0; i < n; i++) {
+                int m = Integer.parseInt(workArray[i]);
+                int data = sc.nextInt();
+                Node temp = new Node(data);
+                if (head == null) {
+                    head = temp;
+                    pre = temp;
+                } else {
+                    pre.next = temp;
+                    pre = temp;
+                }
+
+                Node preB = temp;
+                for (int j = 0; j < m - 1; j++) {
+                    int tempData = sc.nextInt();
+                    Node tempB = new Node(tempData);
+                    preB.bottom = tempB;
+                    preB = tempB;
+                }
+            }
+
+            // Consume the remaining newline if there's any
+            if (sc.hasNextLine()) {
+                sc.nextLine();
+            }
+
+            Solution ob = new Solution();
+            Node root = ob.flatten(head);
+            printList(root);
+        }
+        sc.close();
+    }
+}
+
+// } Driver Code Ends
