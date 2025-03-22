@@ -96,11 +96,16 @@ class GfG {
             Solution g = new Solution();
             System.out.println(g.minValue(root));
             t--;
-        }
+        
+System.out.println("~");
+}
     }
 }
 
 // } Driver Code Ends
+
+
+
 
 /*
 class Node {
@@ -117,12 +122,12 @@ class Node {
 class Solution {
     // Function to find the minimum element in the given BST.
     int minValue(Node root) {
-        if(root==null) return -1;
-        if(root.left== null) return root.data;
         Node temp = root;
-        while(temp.left!=null){
+        int ans = 0;
+        while(temp!=null){
+            ans = temp.data;
             temp = temp.left;
         }
-        return temp.data;
+        return ans;
     }
 }
